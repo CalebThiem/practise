@@ -1,77 +1,66 @@
 #include <stdio.h>
-#include <stdint.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-#define MAX_INPUT_LENGTH 17
+#define MAX_CARD_LENGTH 16
 
-// Define array to store user input
+// Allow for newline character and null terminator (appended by fgets())
 
-char userInput[MAX_INPUT_LENGTH];
+#define MAX_ARRAY_LENGTH MAX_CARD_LENGTH + 2
 
-void getInput(void);
+int newLineSearch(char * userInput);
 
-// Prototype of function to check that user input is valid 
+int numberValid = 0; 
 
-uint8_t checkInput(char *);
-
-// Prototype of function to identify the issuer of the credit card
-
-uint8_t identifyCard(char *);
-
-// **TO DO**
-
-int main()
-    {
-        getInput();
-
-        while (checkInput(userInput) == 0)
-        {
-            getInput();
-        }
-
-        printf("%s", userInput);
-    }
-
-// Requests input from user and stores it in userInput char array
-
-void getInput(void)
+int main(void)
 {
-    printf("Number: ");
-    
-    fgets(userInput, MAX_INPUT_LENGTH, stdin); 
-
-}
-
-// Checks to see if each character in the user input is a number between 0 and 9
-
-uint8_t checkInput(char *userInput)
-{
-    uint8_t i = 0;
-
-    while (i < MAX_INPUT_LENGTH)
+    while (numberValid == 0)
     {
-        if ((int) (userInput[i]) < 0 || (int) (userInput[i]) > 9)
+        char userInput[MAX_ARRAY_LENGTH];
+
+        printf("Number: ");
+
+        fgets(userInput, MAX_ARRAY_LENGTH, stdin);
+
+        // Check if the user inputted a value MAX_CARD_LENGTH characters long
+
+        if (newLineSearch(userInput) == 1)
         {
-            if (userInput[i] != '\0')
-            {
-            return 0;
+            /* Write number checking function **TO DO**
+            if (checkNumber == 1)
+                numberValid = 1;           
+            else {
+                break;
             }
-        }
+            */
+        } else {
 
-        else 
-        {
-            i += 1;
-
+            /* If fgets wrote to the array without including a return character
+             then empty the sdtin buffer by making more fgets calls. When 
+             buffer is empty (indicated by presence of newline character,  
+             go to start of loop and request new input. */
+             
+            do {
+                fgets(userInput, MAX_ARRAY_LENGTH, stdin);
+            }
+            while (newLineSearch(userInput) == 0);
+        
             continue;
         }
     }
-
-    // printf("%s", userInput);
-    return 1;
 }
 
-// Uses Luhn's algorithm to check card number validity and identify issuer **TO DO**
+// Checks array for newline character, if present returns 1
 
-uint8_t identifyCard(char *userInput)
+int newLineSearch(char * userInput)
 {
-    return 1;
+    for (int i = 0; i <= MAX_ARRAY_LENGTH; i++)
+    {
+       if (userInput[i] == '\n')
+       {
+        return 1;
+       }
+    }
+
+    return 0;
 }
