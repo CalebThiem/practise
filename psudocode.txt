@@ -1,0 +1,17 @@
+create array
+
+read max 17 digits from terminal input to array
+
+loop through array and check for newline character
+
+    if newline character is present
+        check string validity
+
+    if newline character is absent
+        dump terminal input
+            read terminal buffer to array 
+            check array for newline character
+                if present
+                    break
+                if absent
+                    continue
