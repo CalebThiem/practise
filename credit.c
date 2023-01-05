@@ -68,7 +68,7 @@ int main(void)
 
             /* If fgets wrote to the array without including a return character
              then empty the sdtin buffer by making more fgets calls. When 
-             buffer is empty (indicated by presence of newline character,  
+             buffer is empty (indicated by presence of newline character),  
              go to start of loop and request new input. */
              
             do {
@@ -96,6 +96,8 @@ int new_line_search(char * userInput)
     return 0;
 }
 
+// Returns 1 if the user's input is composed entirely of digits, else returns 0
+
 int check_input(char * userInput, int inputLength)
 {
     for (int i = 0; i < inputLength - 1; i++)
@@ -108,6 +110,8 @@ int check_input(char * userInput, int inputLength)
 
     return 1;
 }
+
+// Returns 1 if user input is valid according to Luhn's algorithm, else returns 0
 
 int check_luhn(char * userInput, int inputLength)
 {
@@ -167,6 +171,8 @@ int check_luhn(char * userInput, int inputLength)
 
 }
 
+// Adds the digits in a string of numbers. If multiply is set, multiplies each digit by 2 before adding
+
 int add_digits(char * digitList, int multiply)
 {
     int inputLength = strlen(digitList);
@@ -209,6 +215,8 @@ int add_digits(char * digitList, int multiply)
     return stepTwoInt;
 }
 
+// Returns 1 if input has Visa markers (prefix digits and length), 2 for Mastercard, 3 for American Express. Returns 0 if none match.
+
 int identify_card(char * userInput, int inputLength)
 {
     if (userInput[0] == '4' && (((inputLength - 1) == 13) || ((inputLength - 1) == 16)))
@@ -250,5 +258,4 @@ int identify_card(char * userInput, int inputLength)
     }
 
     return 0;
-        
 }
