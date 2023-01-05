@@ -9,15 +9,15 @@
 
 #define MAX_ARRAY_LENGTH MAX_CARD_LENGTH + 2
 
-int newLineSearch(char * userInput);
+int new_line_search(char * userInput);
 
-int checkInput(char * userInput, int inputLength);
+int check_input(char * userInput, int inputLength);
 
-int checkLuhn(char * userInput, int inputLength);
+int check_luhn(char * userInput, int inputLength);
 
-int addDigits(char * digitList, int multiply);
+int add_digits(char * digitList, int multiply);
 
-int identifyCard(char * userInput, int inputLength);
+int identify_card(char * userInput, int inputLength);
 
 int numberValid = 0; 
 
@@ -33,17 +33,17 @@ int main(void)
 
         // Check if the user inputted a value MAX_CARD_LENGTH characters long
 
-        if (newLineSearch(userInput) == 1)
+        if (new_line_search(userInput) == 1)
         {
             int inputLength = strlen(userInput);
 
-            if (checkInput(userInput, inputLength) == 1)
+            if (check_input(userInput, inputLength) == 1)
             {
-                if (checkLuhn(userInput, inputLength) == 1)
+                if (check_luhn(userInput, inputLength) == 1)
                 {       
                     numberValid = 1; 
 
-                    switch (identifyCard(userInput, inputLength)) {
+                    switch (identify_card(userInput, inputLength)) {
                         case 1: 
                             printf("VISA\n");
                             break;
@@ -64,13 +64,6 @@ int main(void)
                 }
 
             }
-            /* Write number checking function **TO DO**
-            if (checkNumber == 1)
-                numberValid = 1;           
-            else {
-                break;
-            }
-            */
         } else {
 
             /* If fgets wrote to the array without including a return character
@@ -81,7 +74,7 @@ int main(void)
             do {
                 fgets(userInput, MAX_ARRAY_LENGTH, stdin);
             }
-            while (newLineSearch(userInput) == 0);
+            while (new_line_search(userInput) == 0);
         
             continue;
         }
@@ -90,7 +83,7 @@ int main(void)
 
 // Checks array for newline character, if present returns 1
 
-int newLineSearch(char * userInput)
+int new_line_search(char * userInput)
 {
     for (int i = 0; i <= MAX_ARRAY_LENGTH; i++)
     {
@@ -103,7 +96,7 @@ int newLineSearch(char * userInput)
     return 0;
 }
 
-int checkInput(char * userInput, int inputLength)
+int check_input(char * userInput, int inputLength)
 {
     for (int i = 0; i < inputLength - 1; i++)
     {
@@ -116,7 +109,7 @@ int checkInput(char * userInput, int inputLength)
     return 1;
 }
 
-int checkLuhn(char * userInput, int inputLength)
+int check_luhn(char * userInput, int inputLength)
 {
     // Ignore newline character at end of string
 
@@ -157,12 +150,12 @@ int checkLuhn(char * userInput, int inputLength)
 
         if (inputLength % 2 == 0)
         {
-            luhn = addDigits(odds, 1);
-            luhn = luhn + addDigits(evens, 0);
+            luhn = add_digits(odds, 1);
+            luhn = luhn + add_digits(evens, 0);
         }
         else {
-            luhn = addDigits(evens, 1);
-            luhn = luhn + addDigits(odds, 0);
+            luhn = add_digits(evens, 1);
+            luhn = luhn + add_digits(odds, 0);
         }
 
     if (luhn % 10 == 0) 
@@ -174,7 +167,7 @@ int checkLuhn(char * userInput, int inputLength)
 
 }
 
-int addDigits(char * digitList, int multiply)
+int add_digits(char * digitList, int multiply)
 {
     int inputLength = strlen(digitList);
 
@@ -216,7 +209,7 @@ int addDigits(char * digitList, int multiply)
     return stepTwoInt;
 }
 
-int identifyCard(char * userInput, int inputLength)
+int identify_card(char * userInput, int inputLength)
 {
     if (userInput[0] == '4' && (((inputLength - 1) == 13) || ((inputLength - 1) == 16)))
     {
