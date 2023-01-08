@@ -183,9 +183,7 @@ int add_digits(char * digitList, int multiply)
 
     char numbers;
 
-    int evensLen = strlen(digitList);
-
-    for (int k = 0; k < evensLen; k++)
+    for (int k = 0; k < inputLength; k++)
     {
         int tempInt = 0;
 
